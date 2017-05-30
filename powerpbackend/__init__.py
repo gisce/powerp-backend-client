@@ -1,2 +1,2 @@
 from __future__ import absolute_import
-from powerpbackend import Client
+from powerpbackend.powerpbackend import Client
