@@ -18,7 +18,7 @@ class Client:
         self.backend_url = url
         self.token = token
 
-    def method(self, model, identifier, method_name):
+    def method(self, model, identifier, method_name, arguments):
         """
         Calls a method of model
 
@@ -28,12 +28,18 @@ class Client:
         :type model: str,int
         :param method_name: Method of the mode
         :type method_name: str
+        :param arguments: Arguments to pass to the method
+        :type arguments: list
         :return: Result
         :rtype: dict
         """
 
-        built_url = "{}/{}".format(self.backend_url, model, str(identifier), method_name)
+        built_url = "{}/{}/{}/{}".format(self.backend_url, model, str(identifier), method_name)
+        print "built_url:{}".format(built_url)
         headers = {"Authorization": "token {}".format(self.token)}
-        response = requests.get(built_url, headers=headers)
-        print response
+        response = requests.post(
+            built_url,
+            headers=headers,
+            params={"args": arguments}
+        )
         return json.loads(response.content)
