@@ -35,7 +35,6 @@ class Client:
         """
 
         built_url = "{}/{}/{}/{}".format(self.backend_url, model, str(identifier), method_name)
-        print "built_url:{}".format(built_url)
         headers = {"Authorization": "token {}".format(self.token)}
         response = requests.post(
             built_url,
