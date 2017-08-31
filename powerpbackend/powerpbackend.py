@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 class Client:
     """
     Client class to query to the Powererp backend
@@ -42,3 +43,31 @@ class Client:
             params={"args": arguments}
         )
         return json.loads(response.content)
+
+    def search(self, model, schema, filter):
+        """
+        Search on the backend
+        :param model: Model where search
+        :type model: str
+        :param schema: Fields to search
+        :type schema: list
+        :param filter: Filter to apply to the model
+        :type filter: list
+        :return:
+        """
+        
+        url = "{}/{}".format(self.backend_url, model)
+        headers = {
+            "Authorization": "token {}".format(self.token),
+            'Content-Type': 'application/json',
+        }
+        response = requests.get(
+            url,
+            headers=headers,
+            json={
+                "filter": json.dumps(filter),
+                "schema": ','.join(schema)
+            }
+        )
+        return response.content
+
