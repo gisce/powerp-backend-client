@@ -44,15 +44,15 @@ class Client:
         )
         return json.loads(response.content)
 
-    def search(self, model, schema, filter):
+    def search(self, model, schema, model_filter):
         """
         Search on the backend
         :param model: Model where search
         :type model: str
         :param schema: Fields to search
         :type schema: list
-        :param filter: Filter to apply to the model
-        :type filter: list
+        :param model_filter: Filter to apply to the model
+        :type model_filter: list
         :return:
         """
         
@@ -65,9 +65,9 @@ class Client:
             url,
             headers=headers,
             json={
-                "filter": json.dumps(filter),
+                "filter": json.dumps(model_filter),
                 "schema": ','.join(schema)
             }
         )
-        return response.content
+        return json.loads(response.content)
 
