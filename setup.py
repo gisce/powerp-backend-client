@@ -5,7 +5,7 @@ reqs = data.split()
 
 setup(
     name='powerpbackend-client',
-    version='0.1.1',
+    version='0.1.2',
     packages=find_packages(),
     url='https://gitlab.com/gisce/backend-client',
     license='MIT',
