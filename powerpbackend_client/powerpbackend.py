@@ -71,3 +71,25 @@ class Client:
         )
         return json.loads(response.content)
 
+    def write(self, model, identifier, fields):
+        """
+
+        :param model:
+        :param identifier:
+        :param fields:
+        :return:
+        """
+
+        url = "{}/{}/{}".format(self.backend_url, model, identifier)
+        headers = {
+            "Authorization": "token {}".format(self.token),
+            'Content-Type': 'application/json',
+        }
+        response = requests.patch(
+            url,
+            json.dumps(fields),
+            headers=headers
+        )
+        print(response)
+        print(response.content)
+
