@@ -73,11 +73,15 @@ class Client:
 
     def write(self, model, identifier, fields):
         """
+        Write on a model
 
-        :param model:
-        :param identifier:
-        :param fields:
-        :return:
+        :param model: Model to write
+        :type model: str
+        :param identifier: id of the element to write
+        :type identifier: int
+        :param fields: Data to write
+        :type fields: dict
+        :return: None
         """
 
         url = "{}/{}/{}".format(self.backend_url, model, identifier)
