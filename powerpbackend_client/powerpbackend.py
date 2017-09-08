@@ -89,11 +89,37 @@ class Client:
             "Authorization": "token {}".format(self.token),
             'Content-Type': 'application/json',
         }
-        response = requests.patch(
+        requests.patch(
             url,
             json.dumps(fields),
             headers=headers
         )
-        print(response)
-        print(response.content)
+
+    def create(self, model, fields):
+        """
+        Creates a record on the model
+
+        :param model:Model name
+        :type model: str
+        :param fields: data to create the record
+        :type fields: dict
+        :return: id
+        :rtype: int,
+        """
+
+        url = "{}/{}".format(self.backend_url, model)
+        headers = {
+            "Authorization": "token {}".format(self.token),
+            'Content-Type': 'application/json',
+        }
+        response = requests.post(
+            url,
+            json.dumps(fields),
+            headers=headers
+        )
+        if response.status_code != 200:
+            raise Exception(response.content)
+        id = json.loads(response.content)["id"]
+        return id
+
 
