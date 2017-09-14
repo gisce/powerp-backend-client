@@ -42,7 +42,8 @@ class Client:
             headers=headers,
             params={"args": arguments}
         )
-        return json.loads(response.content)
+        if response:
+            return json.loads(response.content)
 
     def search(self, model, schema, model_filter):
         """
@@ -53,7 +54,8 @@ class Client:
         :type schema: list
         :param model_filter: Filter to apply to the model
         :type model_filter: list
-        :return:
+        :return: None if there is no response from the backend
+        :rtype: None, dict
         """
         
         url = "{}/{}".format(self.backend_url, model)
