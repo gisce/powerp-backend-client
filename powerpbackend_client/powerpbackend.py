@@ -42,7 +42,8 @@ class Client:
             headers=headers,
             params={"args": arguments}
         )
-        return json.loads(response.content)
+        if response:
+            return json.loads(response.content)
 
     def search(self, model, schema, model_filter):
         """
