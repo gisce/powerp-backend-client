@@ -54,7 +54,8 @@ class Client:
         :type schema: list
         :param model_filter: Filter to apply to the model
         :type model_filter: list
-        :return:
+        :return: None if there is no response from the backend
+        :rtype: None, dict
         """
         
         url = "{}/{}".format(self.backend_url, model)
