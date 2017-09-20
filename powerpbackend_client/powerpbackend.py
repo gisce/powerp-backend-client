@@ -131,13 +131,13 @@ class Client:
         :param      model:  model name
         :type       model:  str
         :param      ids:    ids of the elements to read from
-        :type       ids:    integer list
+        :type       ids:    list of int
         :param      fields: data to read from
-        :type       fields: string list
+        :type       fields: list of str
         :return:    read data from
-        :rtype:     dict
+        :rtype:     dict[str, str]
         """
-        
+
         url = "{}/{}".format(self.backend_url, model)
         headers = {
             "Authorization": "token {}".format(self.token),
@@ -148,7 +148,7 @@ class Client:
                                 headers=headers,
                                 json={
                                     "filter": "[('id', 'in',(" +
-                                              ",".join(ids) +
+                                              ",".join(str(x) for x in ids) +
                                               "))]",
                                     "schema": ",".join(fields)
                                 })
