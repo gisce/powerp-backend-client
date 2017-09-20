@@ -124,4 +124,33 @@ class Client:
         id = json.loads(response.content)["id"]
         return id
 
+    def read(self, model, ids, fields):
+        """
+        Read from a model
 
+        :param      model:  model name
+        :type       model:  str
+        :param      ids:    ids of the elements to read from
+        :type       ids:    integer list
+        :param      fields: data to read from
+        :type       fields: string list
+        :return:    read data from
+        :rtype:     dict
+        """
+        
+        url = "{}/{}".format(self.backend_url, model)
+        headers = {
+            "Authorization": "token {}".format(self.token),
+            "Content-Type": "application/json",
+        }
+
+        response = requests.get(url,
+                                headers=headers,
+                                json={
+                                    "filter": "[('id', 'in',(" +
+                                              ",".join(ids) +
+                                              "))]",
+                                    "schema": ",".join(fields)
+                                })
+
+        return json.loads(response.content)
