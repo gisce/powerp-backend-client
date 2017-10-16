@@ -91,11 +91,12 @@ class Client:
             "Authorization": "token {}".format(self.token),
             'Content-Type': 'application/json',
         }
-        requests.patch(
+        resp = requests.patch(
             url,
             json.dumps(fields),
             headers=headers
         )
+        return resp.content
 
     def create(self, model, fields):
         """
