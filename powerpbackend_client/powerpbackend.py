@@ -140,17 +140,17 @@ class Client:
 
         url = "{}/{}".format(self.backend_url, model)
         headers = {
-            "Authorization": "token {}".format(self.token),
-            "Content-Type": "application/json",
+            "Authorization": "token {}".format(self.token)
+        }
+        params = {
+            "filter": "[('id', 'in',(" +
+                      ",".join(str(x) for x in ids) + ',' +
+                      "))]",
+            "schema": ",".join(fields)
         }
 
         response = requests.get(url,
                                 headers=headers,
-                                json={
-                                    "filter": "[('id', 'in',(" +
-                                              ",".join(str(x) for x in ids) +
-                                              "))]",
-                                    "schema": ",".join(fields)
-                                })
+                                params=params)
 
         return json.loads(response.content)
