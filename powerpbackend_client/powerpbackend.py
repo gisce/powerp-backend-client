@@ -125,4 +125,33 @@ class Client:
         id = json.loads(response.content)["id"]
         return id
 
+    def read(self, model, id, fields):
+        """
+        Adds the read method
+
+        :param model: Model to read
+        :type model: str
+        :param id: id of the element
+        :type id: int
+        :param fields:
+        :type fields: list(str)
+        :return: dict
+        """
+
+        url = "{}/{}/{}".format(self.backend_url, model, id)
+        headers = {
+            "Authorization": "token {}".format(self.token),
+            'Content-Type': 'application/json',
+        }
+        response = requests.get(
+            url,
+            json={
+                "schema": ','.join(fields)
+            },
+            headers=headers
+        )
+        if response.status_code != 200:
+            raise Exception(response.content)
+        data = json.loads(response.content)
+        return data
 
